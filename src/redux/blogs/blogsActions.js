@@ -43,8 +43,8 @@ export const deleteBlog = (id, closeModal = () => {}) => {
     Axios.delete(`/post/${id}`)
       .then((res) => {
         dispatch({ type: GET_SINGLE_BLOG_SUCCESS, payload: res.data });
-        closeModal();
         toast("Post deleted successfully");
+        closeModal();
       })
       .catch((error) => {
         dispatch({ type: GET_SINGLE_BLOG_FAILURE, payload: error });
