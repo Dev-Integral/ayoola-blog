@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
 import Pagination from "../component/Pagination";
 import { getBlogs } from "../redux/blogs/blogsActions";
@@ -8,16 +7,15 @@ import * as dfn from "date-fns";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const [blogPosts, setBlogPost] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10);
+  const [itemsPerPage] = useState(9);
   const dispatch = useDispatch();
   const { blogsData } = useBlog();
   const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getBlogs({ itemsPerPage, currentPage }));
-  }, [itemsPerPage, currentPage]);
+  }, [itemsPerPage, currentPage, dispatch]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);

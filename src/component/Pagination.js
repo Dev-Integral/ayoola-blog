@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 const Pagination = ({
   itemsPerPage,
   totalItems,

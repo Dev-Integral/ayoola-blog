@@ -1,5 +1,4 @@
 import axios from "axios";
-import store from "../redux/store";
 
 const baseUrl = "https://dummyapi.io/data/v1";
 
