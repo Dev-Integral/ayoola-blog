@@ -5,6 +5,7 @@ import { getBlogs } from "../redux/blogs/blogsActions";
 import { useDispatch } from "react-redux";
 import useBlog from "../hooks/useBlog";
 import * as dfn from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [blogPosts, setBlogPost] = useState();
@@ -12,6 +13,7 @@ const Home = () => {
   const [itemsPerPage] = useState(10);
   const dispatch = useDispatch();
   const { blogsData } = useBlog();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getBlogs({ itemsPerPage, currentPage }));
@@ -23,7 +25,6 @@ const Home = () => {
 
   return (
     <Fragment>
-      {" "}
       <div className="bg-gray-100">
         <div className="max-w-[80vw] lg:max-w-[70vw] mx-auto flex flex-col items-center gap-2 py-12 ">
           <h1 className="text-3xl font-bold mb-1 text-center">
@@ -48,7 +49,7 @@ const Home = () => {
                 <span className="">{blog?.text}</span>
               </p>
               <p>Time: {blog?.publishDate ? dfn.formatRFC7231(dfn.parse(blog?.publishDate?.split("T")[0], "yyyy-MM-dd", new Date()), "dd MM, yyyy") : ''}</p>
-              <p></p>
+              <p className="cursor-pointer text-gray-50 bg-blue-500 text-center rounded mt-4 p-2" onClick={()=> navigate(`/details/${blog?.id}`)}>Learn more</p>
             </div>
           </div>
         ))}

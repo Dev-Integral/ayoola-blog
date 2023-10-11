@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Nav from "./component/Nav";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import Details from "./pages/Details";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/home" element={<Home />} />
+          <Route path="/details/:id" element={<Details />} />
           <Route path="*" element={<Navigate to="/home" replace />} />
         </Routes>
       </Router>

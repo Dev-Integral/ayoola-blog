@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 const useBlog = () => {
   const blog = useSelector((state) => state.blog);
   
-  let { isLoadingBlogs, blogsData } = blog;
+  let { isLoadingBlogs, blogsData, isLoadingABlog, blogDetails } = blog;
 
   return {
-    isLoadingBlogs, blogsData
+    isLoadingBlogs, blogsData, isLoadingABlog, blogDetails
   };
 };
 
