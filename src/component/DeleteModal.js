@@ -2,15 +2,17 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { useDispatch } from "react-redux";
 import { deleteBlog } from "../redux/blogs/blogsActions";
+import { useNavigate } from "react-router-dom";
 
 const DeleteModal = ({ isOpen, setIsOpen, id }) => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const closeModal = () => {
-    setIsOpen(false);
+    console.log("HERE")
+    navigate("/")
   };
   const handleDelete = () => {
-    dispatch(deleteBlog(id), closeModal);
+    dispatch(deleteBlog(id, ()=>closeModal()));
   };
 
   return (

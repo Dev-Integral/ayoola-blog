@@ -17,7 +17,6 @@ export const getBlogs = (payload) => {
     )
       .then((res) => {
         dispatch({ type: GET_BLOGS_SUCCESS, payload: res.data });
-        toast('Posts retreived successfully');
       })
       .catch((error) => {
         dispatch({ type: GET_BLOGS_FAILURE, payload: error });
@@ -30,7 +29,6 @@ export const getSingleBlog = (id) => {
     dispatch({ type: GET_SINGLE_BLOG_START });
     Axios.get(`/post/${id}`)
       .then((res) => {
-        toast("Post Fetched successfully");
         dispatch({ type: GET_SINGLE_BLOG_SUCCESS, payload: res.data });
       })
       .catch((error) => {
@@ -45,8 +43,8 @@ export const deleteBlog = (id, closeModal = () => {}) => {
     Axios.delete(`/post/${id}`)
       .then((res) => {
         dispatch({ type: GET_SINGLE_BLOG_SUCCESS, payload: res.data });
-        toast("Post deleted successfully");
         closeModal();
+        toast("Post deleted successfully");
       })
       .catch((error) => {
         dispatch({ type: GET_SINGLE_BLOG_FAILURE, payload: error });
