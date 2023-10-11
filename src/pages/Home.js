@@ -3,26 +3,22 @@ import { Fragment, useEffect, useState } from "react";
 import Pagination from "../component/Pagination";
 import { getBlogs } from "../redux/blogs/blogsActions";
 import { useDispatch } from "react-redux";
+import useBlog from "../hooks/useBlog";
+import * as dfn from "date-fns";
 
 const Home = () => {
   const [blogPosts, setBlogPost] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(12);
-  const [offset, setOffset] = useState(0);
+  const [itemsPerPage] = useState(10);
   const dispatch = useDispatch();
+  const { blogsData } = useBlog();
 
   useEffect(() => {
-    dispatch(getBlogs());
-    // axios
-    //   .get(
-    //     `https://dummyapi.io/data/v1/post?offset=${offset}&limit=${itemsPerPage}`
-    //   )
-    //   .then((res) => console.log(res.data)&setBlogPost(res.data))
-    //   .catch((error) => console.log(error));
-  }, []);
+    dispatch(getBlogs({ itemsPerPage, currentPage }));
+  }, [itemsPerPage, currentPage]);
+
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
-    setOffset(newPage === 1 ? 0 : newPage * 10);
   };
 
   return (
@@ -40,15 +36,19 @@ const Home = () => {
         </div>
       </div>
       <div className="max-w-[80vw] lg:max-w-[70vw] mx-auto grid sm:grid-cols-2 md:grid-cols-3 gap-8 py-12 ">
-        {blogPosts?.blogs?.map((blog, key) => (
+        {blogsData?.data?.map((blog, key) => (
           <div key={key} className="drop-shadow border">
-            <img src={blog?.photo_url} alt="blog" />
+            <img src={blog?.image} alt="blog" />
             <div className="p-3 text-sm text-slate-950">
-              <p className="mt-2 mb-1"><span className="font-bold">Category</span>: {blog?.category}</p>
-              <p className=""><span className="font-bold">Title</span>: {blog?.title}</p>
-              <p className="">
-              <span className="font-bold">Description</span>: <span className="">{blog?.description}</span>
+              <p className="mt-2 mb-1 flex gap-2 items-center">
+                <span className="font-bold">Tags:</span> <span className="flex gap-2">{blog?.tags?.map((tag_name, index)=> <span key={index} className="rounded bg-sky-200 text-slate-900 p-1">{tag_name}</span>)}</span>
               </p>
+              <p className="">
+                <span className="font-bold">Title</span>:{" "}
+                <span className="">{blog?.text}</span>
+              </p>
+              <p>Time: {blog?.publishDate ? dfn.formatRFC7231(dfn.parse(blog?.publishDate?.split("T")[0], "yyyy-MM-dd", new Date()), "dd MM, yyyy") : ''}</p>
+              <p></p>
             </div>
           </div>
         ))}
@@ -56,7 +56,7 @@ const Home = () => {
       <div className="max-w-[80vw] lg:max-w-[70vw] mx-auto py-4">
         <Pagination
           itemsPerPage={itemsPerPage}
-          totalItems={blogPosts?.total_blogs}
+          totalItems={blogsData?.total}
           currentPage={currentPage}
           onPageChange={handlePageChange}
         />

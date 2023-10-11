@@ -1,9 +1,10 @@
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { combineReducers } from "redux";
+import blogsReducer from "./blogs/blogsReducer";
 
 const rootReducer = combineReducers({
-    // alert: alertReducer,
+    blog: blogsReducer
 });
 
 const _reducerName = 'ayoola_blog_reducer';
