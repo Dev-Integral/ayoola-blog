@@ -11,6 +11,7 @@ import {
   MdOutlineNewLabel,
 } from "react-icons/md";
 import * as dfn from "date-fns";
+import DeleteModal from "../component/DeleteModal";
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -101,7 +102,7 @@ const Details = () => {
       </div>
       <div className="bg-white drop-shadow py-12">
         <div className="max-w-[80vw] lg:max-w-[70vw] mx-auto py-6 grid sm:grid-cols-2 md:grid-cols-2">
-          <img src={blogDetails?.image} alt="cat" />
+          <div className="border"><img src={blogDetails?.image} alt="cat" /></div>
 
           <div className="border p-4">
             <h1 className="uppercase font-bold text-3xl">
@@ -125,6 +126,7 @@ const Details = () => {
           </div>
         </div>
       </div>
+      <DeleteModal isOpen={deleteModal} setIsOpen={toggleDeleteModal} id={id} />
     </Fragment>
   );
 };

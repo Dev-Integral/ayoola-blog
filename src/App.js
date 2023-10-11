@@ -9,6 +9,8 @@ import Nav from "./component/Nav";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import Details from "./pages/Details";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
           <Route path="*" element={<Navigate to="/home" replace />} />
         </Routes>
       </Router>
+      <ToastContainer />
     </div>
     </Provider>
   );
