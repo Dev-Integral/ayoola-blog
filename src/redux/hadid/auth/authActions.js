@@ -1,5 +1,4 @@
 import axios from "axios";
-import { toast } from "react-toastify";
 import { GET_AUTH_START } from "./type";
 
 export const getAuth = () => {
