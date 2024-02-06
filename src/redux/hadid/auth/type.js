@@ -1,0 +1,3 @@
+export const GET_AUTH_START = "GET_AUTH_START";
+export const GET_AUTH_END = "GET_AUTH_END";
+export const GET_AUTH_LOADING = "GET_AUTH_LOADING";

@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import useBlog from "../hooks/useBlog";
 import * as dfn from "date-fns";
 import { useNavigate } from "react-router-dom";
+import { getAuth } from "../redux/hadid/auth/authActions";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,6 +16,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getBlogs({ itemsPerPage, currentPage }));
+    dispatch(getAuth())
   }, [itemsPerPage, currentPage, dispatch]);
 
   const handlePageChange = (newPage) => {
