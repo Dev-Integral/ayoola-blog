@@ -9,7 +9,8 @@ const DeleteModal = ({ isOpen, setIsOpen, id }) => {
   const navigate = useNavigate();
   const closeModal = () => {
     console.log("HERE")
-    navigate("/")
+    navigate("/");
+
   };
   const handleDelete = () => {
     dispatch(deleteBlog(id, ()=>closeModal()));

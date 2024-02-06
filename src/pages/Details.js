@@ -101,14 +101,24 @@ const Details = () => {
         </div>
       </div>
       <div className="bg-white drop-shadow py-12">
-        <div className="max-w-[80vw] lg:max-w-[70vw] mx-auto py-6 grid sm:grid-cols-2 md:grid-cols-2">
-          <div className="border"><img src={blogDetails?.image} alt="cat" /></div>
+        <div className="max-w-[90vw] lg:max-w-[80vw] mx-auto py-6 grid sm:grid-cols-2 md:grid-cols-2">
+          <div className="bg-cover bg-center flex items-center justify-center" style={{ backgroundImage: `url('${blogDetails?.image}')` }}></div>
 
           <div className="border p-4">
             <h1 className="uppercase font-bold text-3xl">
               {blogDetails?.text}
             </h1>
             <p>
+              Gas free necessary lawyer. Most value economic identify one free.
+              Speech store key edge he.\nDraw relationship green court\nNearly
+              student describe test range Republican home. Take we approach
+              today even forward decade might. Nearly student describe test
+              range Republican home. Take we approach today even forward decade
+              might. Nearly student describe test range Republican home. Take we
+              approach today even forward decade might.\nParticipant garden
+              above student. Investment possible community claim party tree
+              doctor. Billion bad Republican turn.
+              <br/> <br />
               Gas free necessary lawyer. Most value economic identify one free.
               Speech store key edge he.\nDraw relationship green court\nNearly
               student describe test range Republican home. Take we approach
