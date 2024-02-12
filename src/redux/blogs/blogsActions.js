@@ -9,6 +9,8 @@ import {
   GET_SINGLE_BLOG_START,
   GET_SINGLE_BLOG_SUCCESS,
 } from "./type";
+import { createClient } from "contentful";
+
 export const getBlogs = (payload) => {
   return (dispatch) => {
     dispatch({ type: GET_BLOGS_START });
@@ -21,6 +23,17 @@ export const getBlogs = (payload) => {
       .catch((error) => {
         dispatch({ type: GET_BLOGS_FAILURE, payload: error });
       });
+  };
+};
+
+export const getBlogList = () => {
+  const client = createClient({
+    space: process.env.REACT_APP_CONTENTFUL_SPACE,
+    accessToken: process.env.REACT_APP_CONTENTFUL_ACCESS_TOKEN,
+  });
+
+  return  (dispatch) => {
+     client.getEntries().then((res) =>dispatch({ type: GET_BLOGS_SUCCESS, payload: res })).catch((error)=> console(error));
   };
 };
 

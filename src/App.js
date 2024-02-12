@@ -11,7 +11,7 @@ import store from "./redux/store";
 import Details from "./pages/Details";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import AdminDashboard from "./pages/AdminDashboard";
+import AdminDashboardLayout from "./pages/AdminDashboardLayout";
 
 function App() {
   return (
@@ -22,10 +22,13 @@ function App() {
       </div>
       <Router>
         <Routes>
-          <Route path="/home" element={<Home />} />
+          <Route path="/blog" element={<Home />} />
           <Route path="/details/:id" element={<Details />} />
-          <Rote path="/admin/posts" element={<AdminDashboard />} />
-          <Route path="*" element={<Navigate to="/home" replace />} />
+          <Route path="/admin" element={<AdminDashboardLayout /> } />
+
+          {/* add admin routes with layouts */}
+
+          <Route path="*" element={<Navigate to="/blog" replace />} />
         </Routes>
       </Router>
       <ToastContainer />
