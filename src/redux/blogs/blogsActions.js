@@ -32,8 +32,27 @@ export const getBlogList = () => {
     accessToken: process.env.REACT_APP_CONTENTFUL_ACCESS_TOKEN,
   });
 
-  return  (dispatch) => {
-     client.getEntries().then((res) =>dispatch({ type: GET_BLOGS_SUCCESS, payload: res })).catch((error)=> console(error));
+  return (dispatch) => {
+    client
+      .getEntries()
+      .then((res) => dispatch({ type: GET_BLOGS_SUCCESS, payload: res }))
+      .catch((error) => console(error));
+  };
+};
+
+export const getSingleBlogContentful = (id) => {
+  const client = createClient({
+    space: process.env.REACT_APP_CONTENTFUL_SPACE,
+    accessToken: process.env.REACT_APP_CONTENTFUL_ACCESS_TOKEN,
+  });
+
+  return (dispatch) => {
+    client
+      .getEntry(id)
+      .then((res) =>
+        dispatch({ type: GET_SINGLE_BLOG_SUCCESS, payload: res })
+      )
+      .catch((error) => dispatch({ type: GET_SINGLE_BLOG_FAILURE, payload: error }));
   };
 };
 

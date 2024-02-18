@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getSingleBlog } from "../redux/blogs/blogsActions";
+import { getSingleBlogContentful } from "../redux/blogs/blogsActions";
 import useBlog from "../hooks/useBlog";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FcLike } from "react-icons/fc";
@@ -21,13 +21,15 @@ const Details = () => {
   const { blogDetails } = useBlog();
   const [toggler, setToggler] = useState(false);
   const [deleteModal, toggleDeleteModal] = useState(false);
+
   useEffect(() => {
-    dispatch(getSingleBlog(id));
+    dispatch(getSingleBlogContentful(id));
   }, [id, dispatch]);
 
   return (
     <Fragment>
       <div className="bg-gray-100">
+        {console.log(blogDetails)}
         <div className="max-w-[80vw] lg:max-w-[70vw] mx-auto flex justify-between items-center py-6">
           <div className="capitalize flex flex-col md:flex-row gap-3">
             <div className="w-20">
@@ -42,16 +44,14 @@ const Details = () => {
             <div>
               <p>
                 <span className="font-bold">Author:</span>{" "}
-                {`${blogDetails?.owner?.title ?? ""} ${
-                  blogDetails?.owner?.firstName ?? ""
-                } ${blogDetails?.owner?.lastName ?? ""}`}
+                Ayoola Taiwo
               </p>
               <p>
                 <span className="font-bold">Created at:</span>{" "}
-                {blogDetails?.publishDate
+                {blogDetails?.sys?.createdAt
                   ? dfn.formatRFC7231(
                       dfn.parse(
-                        blogDetails?.publishDate?.split("T")[0],
+                        blogDetails?.sys?.createdAt?.split("T")[0],
                         "yyyy-MM-dd",
                         new Date()
                       ),
@@ -60,16 +60,9 @@ const Details = () => {
                   : ""}
               </p>
               <p className="mt-2 mb-1 flex gap-2 items-center">
-                <span className="font-bold">Topics:</span>{" "}
+                <span className="font-bold">Topic:</span>{" "}
                 <span className="flex gap-2">
-                  {blogDetails?.tags?.map((tag_name, index) => (
-                    <span
-                      key={index}
-                      className="rounded bg-sky-200 text-slate-900 p-1"
-                    >
-                      {tag_name}
-                    </span>
-                  ))}
+                  {blogDetails?.fields?.internalName}
                 </span>
               </p>
             </div>
