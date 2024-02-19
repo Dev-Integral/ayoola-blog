@@ -11,6 +11,10 @@ import {
 } from "./type";
 import { createClient } from "contentful";
 
+const client = createClient({
+    space: process.env.REACT_APP_CONTENTFUL_SPACE,
+    accessToken: process.env.REACT_APP_CONTENTFUL_ACCESS_TOKEN,
+  });
 export const getBlogs = (payload) => {
   return (dispatch) => {
     dispatch({ type: GET_BLOGS_START });
@@ -26,26 +30,16 @@ export const getBlogs = (payload) => {
   };
 };
 
-export const getBlogList = () => {
-  const client = createClient({
-    space: process.env.REACT_APP_CONTENTFUL_SPACE,
-    accessToken: process.env.REACT_APP_CONTENTFUL_ACCESS_TOKEN,
-  });
-
+export const getBlogList = (limit) => {
   return (dispatch) => {
     client
-      .getEntries()
+      .getEntries({limit: limit})
       .then((res) => dispatch({ type: GET_BLOGS_SUCCESS, payload: res }))
       .catch((error) => console(error));
   };
 };
 
 export const getSingleBlogContentful = (id) => {
-  const client = createClient({
-    space: process.env.REACT_APP_CONTENTFUL_SPACE,
-    accessToken: process.env.REACT_APP_CONTENTFUL_ACCESS_TOKEN,
-  });
-
   return (dispatch) => {
     client
       .getEntry(id)

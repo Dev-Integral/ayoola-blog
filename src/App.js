@@ -12,6 +12,8 @@ import Details from "./pages/Details";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminDashboardLayout from "./pages/AdminDashboardLayout";
+import { Contact } from "./pages/Contact";
+import { Article } from "./pages/Article";
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
         <Routes>
           <Route path="/blog" element={<Home />} />
           <Route path="/details/:id" element={<Details />} />
+          <Route path="/article" element={<Article />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/admin" element={<AdminDashboardLayout /> } />
 
           {/* add admin routes with layouts */}

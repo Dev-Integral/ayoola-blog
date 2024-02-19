@@ -8,13 +8,14 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(6);
   const [itemsPerPage] = useState(9);
   const dispatch = useDispatch();
   const { blogsData } = useBlog();
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getBlogList());
+    dispatch(getBlogList(limit));
   }, [itemsPerPage, currentPage, dispatch]);
 
   // const handlePageChange = (newPage) => {
@@ -35,52 +36,51 @@ const Home = () => {
         </div>
       </div>
       <div className="max-w-[90vw] lg:max-w-[80vw] mx-auto grid sm:grid-cols-2 md:grid-cols-3 gap-8 py-12 ">
-        {blogsData?.items?.map(
-          (blog, key) =>
-            blog?.fields?.shareImages?.length > 0 && (
-              <div key={key} className="drop-shadow border">
-                <img
-                  src={
-                    blog?.fields?.shareImages?.length > 0
-                      ? blog?.fields?.shareImages[0]?.fields?.file?.url
-                      : ""
-                  }
-                  alt="blog"
-                />
-                <div className="p-3 text-sm text-slate-950 relative mb-12">
-                  <p className="">
-                    <span className="font-bold">Title</span>:{" "}
-                    <span className="">{blog?.fields.internalName}</span>
-                  </p>
-                  <p className="">
-                    <span className="font-bold">Summary</span>:{" "}
-                    <span className="">{blog?.fields.pageDescription}...</span>
-                  </p>
-                  <p>
-                    Time:{" "}
-                    {blog?.sys?.createdAt
-                      ? dfn.formatRFC7231(
-                          dfn.parse(
-                            blog?.sys?.createdAt?.split("T")[0],
-                            "yyyy-MM-dd",
-                            new Date()
-                          ),
-                          "dd MM, yyyy"
-                        )
-                      : ""}
-                  </p>
-                  <div className="absolute -bottom-12 w-full">
-                    
-                    <p className="mt-6 w-full flex justify-center">
-                      <button onClick={() => navigate(`/details/${blog?.sys?.id}`)} className="text-gray-50 bg-blue-500 text-center rounded mt-4 mb-4 pl-4 pr-4 p-2">
-                      Learn more
-                    </button>
-                    </p>
-                  </div>
-                </div>
+        {blogsData?.items?.map((blog, key) => (
+          <div key={key} className="drop-shadow border">
+            <img
+              src={
+                blog?.fields?.shareImages?.length > 0
+                  ? blog?.fields?.shareImages[0]?.fields?.file?.url
+                  : ""
+              }
+              alt="blog"
+            />
+            <div className="p-3 text-sm text-slate-950 relative mb-12">
+              <p className="">
+                <span className="font-bold">Title</span>:{" "}
+                <span className="">{blog?.fields.title}</span>
+              </p>
+              <p className="">
+                <span className="font-bold">Summary</span>:{" "}
+                <span className="">{blog?.fields.summary}...</span>
+              </p>
+              <p>
+                Time:{" "}
+                {blog?.fields?.createdAt
+                  ? dfn.formatRFC7231(
+                      dfn.parse(
+                        blog?.sys?.createdAt?.split("T")[0],
+                        "yyyy-MM-dd",
+                        new Date()
+                      ),
+                      "dd MM, yyyy"
+                    )
+                  : ""}
+              </p>
+              <div className="absolute -bottom-12 w-full">
+                <p className="mt-6 w-full flex justify-center">
+                  <button
+                    onClick={() => navigate(`/details/${blog?.sys?.id}`)}
+                    className="text-gray-50 bg-blue-500 text-center rounded mt-4 mb-4 pl-4 pr-4 p-2"
+                  >
+                    Learn more
+                  </button>
+                </p>
               </div>
-            )
-        )}
+            </div>
+          </div>
+        ))}
       </div>
       <div className="max-w-[80vw] lg:max-w-[70vw] mx-auto py-4">
         {/* <Pagination
