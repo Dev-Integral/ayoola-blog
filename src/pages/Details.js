@@ -110,9 +110,9 @@ const Details = () => {
         </div>
       </div>
       <div className="bg-white drop-shadow py-12">
-        <div className="max-w-[90vw] lg:max-w-[80vw] mx-auto py-6 grid sm:grid-cols-2 md:grid-cols-2">
+        <div className="max-w-[90vw] lg:max-w-[80vw] mx-auto py-6 grid sm:grid-cols-2 md:grid-cols-1">
           <div
-            className="bg-cover bg-center flex items-center justify-center"
+            className="bg-cover bg-center min-h-60 items-center justify-center"
             style={{
               backgroundImage: `url('${
                 blogImage?.fields?.file?.url?.length > 0
