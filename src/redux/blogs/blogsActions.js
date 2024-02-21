@@ -50,6 +50,18 @@ export const getSingleBlogContentful = (id) => {
   };
 };
 
+export const getImageContentful = (id, onSuccess=()=>{}) => {
+  return (dispatch) => {
+    client
+      .getAsset(id)
+      .then((res) =>
+      {
+        onSuccess(res)
+      })
+      .catch((error) => dispatch({ type: GET_SINGLE_BLOG_FAILURE, payload: error }));
+  };
+};
+
 export const getSingleBlog = (id) => {
   return (dispatch) => {
     dispatch({ type: GET_SINGLE_BLOG_START });

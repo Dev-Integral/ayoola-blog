@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import { getSingleBlogContentful } from "../redux/blogs/blogsActions";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { getImageContentful, getSingleBlogContentful } from "../redux/blogs/blogsActions";
 import useBlog from "../hooks/useBlog";
 import { BsThreeDotsVertical } from "react-icons/bs";
 // import { FcLike } from "react-icons/fc";
@@ -12,25 +12,33 @@ import {
 } from "react-icons/md";
 import * as dfn from "date-fns";
 import DeleteModal from "../component/DeleteModal";
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const Details = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const id = location?.pathname?.split("/")[2];
+  const imageId = location?.search?.split("=")[1];
   const { blogDetails } = useBlog();
   const [toggler, setToggler] = useState(false);
   const [deleteModal, toggleDeleteModal] = useState(false);
+  const [blogImage, setBlogImage] = useState({});
+
+
 
   useEffect(() => {
     dispatch(getSingleBlogContentful(id));
-  }, [id, dispatch]);
+    dispatch(getImageContentful(imageId, (res)=>(setBlogImage(res))));
+  }, [id, imageId, dispatch]);
 
   return (
     <Fragment>
       <div className="bg-gray-100">
         <div className="max-w-[80vw] lg:max-w-[70vw] mx-auto flex justify-between items-center py-6">
           <div className="capitalize flex flex-col md:flex-row gap-3">
+            {console.log(blogImage)}
             <div className="w-20">
               <img
                 src={blogDetails?.owner?.picture}
@@ -107,8 +115,8 @@ const Details = () => {
             className="bg-cover bg-center flex items-center justify-center"
             style={{
               backgroundImage: `url('${
-                blogDetails?.fields?.shareImages?.length > 0
-                  ? blogDetails?.fields?.shareImages[0]?.fields?.file?.url
+                blogImage?.fields?.file?.url?.length > 0
+                  ? blogImage?.fields?.file?.url
                   : ""
               }')`,
             }}
@@ -118,9 +126,9 @@ const Details = () => {
             <h1 className="uppercase font-bold text-3xl">
               {blogDetails?.text}
             </h1>
-            <p>
-              {blogDetails?.fields?.blogContent}
-            </p>
+            <div>
+              <Markdown remarkPlugins={[remarkGfm]}>{blogDetails?.fields?.blogContent}</Markdown>
+            </div>
             {/* <p className="flex gap-1 mt-4 items-center">
               <span>Likes: {blogDetails?.likes}</span>
               <FcLike />

@@ -71,7 +71,7 @@ const Home = () => {
               <div className="absolute -bottom-12 w-full">
                 <p className="mt-6 w-full flex justify-center">
                   <button
-                    onClick={() => navigate(`/details/${blog?.sys?.id}`)}
+                    onClick={() => navigate(`/details/${blog?.sys?.id}?imageId=${blog?.fields?.banner?.sys?.id}`)}
                     className="text-gray-50 bg-blue-500 text-center rounded mt-4 mb-4 pl-4 pr-4 p-2"
                   >
                     Learn more
